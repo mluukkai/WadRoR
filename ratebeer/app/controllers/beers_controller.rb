@@ -1,6 +1,6 @@
 class BeersController < ApplicationController
-  # GET /beers
-  # GET /beers.json
+  before_filter :authenticate, :except => [:index, :show]
+
   def index
     @beers = Beer.all
 
@@ -10,8 +10,6 @@ class BeersController < ApplicationController
     end
   end
 
-  # GET /beers/1
-  # GET /beers/1.json
   def show
     @beer = Beer.find(params[:id])
 
@@ -21,19 +19,11 @@ class BeersController < ApplicationController
     end
   end
 
-  # GET /beers/new
-  # GET /beers/new.json
   def new
     @beer = Beer.new
     @breweries = Brewery.all
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @beer }
-    end
   end
 
-  # GET /beers/1/edit
   def edit
     @beer = Beer.find(params[:id])
   end
@@ -70,15 +60,8 @@ class BeersController < ApplicationController
     end
   end
 
-  # DELETE /beers/1
-  # DELETE /beers/1.json
   def destroy
     @beer = Beer.find(params[:id])
-    @beer.destroy
-
-    respond_to do |format|
-      format.html { redirect_to beers_url }
-      format.json { head :no_content }
-    end
+    @beer.destroy if current_user.admin?
   end
 end

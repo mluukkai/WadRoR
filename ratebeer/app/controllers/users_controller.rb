@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :except => [:index]
+
   # GET /users
   # GET /users.json
   def index

@@ -1,5 +1,5 @@
 class BreweriesController < ApplicationController
-  before_filter :authenticate, :only => [:create, :destroy]
+  before_filter :authenticate, :except => [:index, :show]
 
   # GET /breweries
   # GET /breweries.json
@@ -75,7 +75,7 @@ class BreweriesController < ApplicationController
   # DELETE /breweries/1.json
   def destroy
     @brewery = Brewery.find(params[:id])
-    @brewery.destroy
+    @brewery.destroy if current_user.admin?
 
     respond_to do |format|
       format.html { redirect_to breweries_url }
@@ -83,11 +83,4 @@ class BreweriesController < ApplicationController
     end
   end
 
-  private
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "admin" and password == "secret"
-    end
-  end
 end
