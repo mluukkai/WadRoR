@@ -10,7 +10,7 @@
   <tr>
     <td><%= link_to user.username, user %></td>
     <td>
-      <% if current_user==user %>
+      <% if currently_signed_in? user %>
         <%= link_to 'delete the user account', user, method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
     </td>

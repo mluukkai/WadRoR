@@ -15,7 +15,7 @@
     <% @user.ratings.each do |rating| %>
       <li>
         <%= rating %>
-        <% if @user == current_user %>
+        <% if currently_signed_in? @user  %>
             <%= link_to 'delete', rating, :method => :delete, :data => { :confirm => 'Are you sure?' } %>
         <% end %>
       </li>
@@ -24,5 +24,6 @@
 
 <% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if currently_signed_in? @user %>
+  <%= link_to 'Change password', edit_user_path(@user) %>
+<% end %>
