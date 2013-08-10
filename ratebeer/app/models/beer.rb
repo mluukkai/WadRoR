@@ -1,4 +1,6 @@
 class Beer < ActiveRecord::Base
+  include RatingAverage
+
   attr_accessible :name, :style, :brewery_id
 
   belongs_to :brewery
@@ -6,11 +8,5 @@ class Beer < ActiveRecord::Base
 
   def to_s
     "#{name} by #{brewery.name}"
-  end
-
-  def average_rating
-    return 0 if ratings.empty?
-
-    ratings.inject(0.0) { |sum, r|  sum + r.score } / ratings.count
   end
 end
