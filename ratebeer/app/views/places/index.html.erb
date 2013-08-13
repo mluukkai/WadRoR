@@ -17,7 +17,13 @@
     <% @locations.each do |location| %>
       <tr>
         <% Location.rendered_fields.each do |f| %>
-          <td><%= location.send(f) %></td>
+          <td>
+            <% if f.to_s!='name' %>
+              <%= location.send(f) %>
+            <% else %>
+               <%= link_to location.name, place_path(location.id) %>
+            <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>

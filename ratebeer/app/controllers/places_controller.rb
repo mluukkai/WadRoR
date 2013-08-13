@@ -10,4 +10,8 @@ class PlacesController < ApplicationController
       render :index
     end
   end
+
+  def show
+    @location = BeermappingAPI.location_with_id(params[:id])
+  end
 end

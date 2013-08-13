@@ -1,9 +1,20 @@
 class BeermappingAPI
   def self.locations_in(city)
+    Location # varmistaa, että luokan koodi on ladattu
     city = city.downcase
     Rails.cache.write(city, [fetch_locations_in(city), Time.now.to_i]) if not_cached? city
 
-    Rails.cache.read(city).first
+    result = Rails.cache.read(city).first
+    Rails.cache.write "previous", result
+
+    result
+  end
+
+  def self.location_with_id(id)
+    Location
+    Rails.cache.read("previous").each do |location|
+      return location if location.id == id
+    end
   end
 
   private
@@ -11,8 +22,8 @@ class BeermappingAPI
   def self.not_cached? city
     return true if not Rails.cache.exist?(city)
     time = Time.at(Rails.cache.read(city).last)
-    #(time+7.days).past?
-    (time+1.minute).past?
+    (time+7.days).past?
+    #(time+1.minute).past?
   end
 
   def self.fetch_locations_in(city)
@@ -30,6 +41,6 @@ class BeermappingAPI
   end
 
   def self.key
-    "96ce1942872335547853a0bb3b0c24db"
+    Settings.beermapping_apikey
   end
 end
