@@ -1,4 +1,6 @@
 class RatingsController < ApplicationController
+  before_filter :authenticate, :except => [:index]
+
   def index
     @ratings = Rating.all
   end
