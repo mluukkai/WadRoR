@@ -9,6 +9,9 @@ Ratebeer::Application.routes.draw do
   get "signin" => "sessions#new"
   get "signout" => "sessions#destroy"
 
+  get "places" => "places#index"
+  post "places" => "places#search"
+
   root :to => 'breweries#index'
 
   # The priority is based upon order of creation:
