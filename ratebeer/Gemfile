@@ -37,4 +37,5 @@ group :development do
 end
 
 gem 'httparty'
+gem 'rails-settings-cached', '0.2.4'
 
