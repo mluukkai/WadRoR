@@ -7,8 +7,21 @@
 <% if @user.ratings.empty? %>
   <p>no ratings given</p>
 <% else %>
+  <h4>favorites:</h4>
+
+  <dl class="dl-horizontal">
+    <dt>beer</dt>
+    <dd><%= link_to @user.favorite_beer, @user.favorite_beer %></dd>
+    <dt>brewery</dt>
+    <dd><%= link_to @user.favorite_brewery, @user.favorite_beer %></dd>
+    <dt>style</dt>
+    <dd><%= @user.favorite_style %></dd>
+  </dl>
+
   <p>
-    <%= @user.ratings.count %> ratings given, average score <%= @user.average_rating %>
+    <strong>
+      <%= @user.ratings.count %> ratings given, average score <%= @user.average_rating %>
+    </strong>
   </p>
 
   <ul>
@@ -16,7 +29,9 @@
       <li>
         <%= rating %>
         <% if currently_signed_in? @user  %>
-            <%= link_to 'delete', rating, :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+            <%= link_to 'delete', rating,
+                        :method => :delete, :data => { :confirm => 'Are you sure?' },
+                        :class => "btn btn-danger btn-mini"%>
         <% end %>
       </li>
     <% end %>
@@ -25,5 +40,8 @@
 <% end %>
 
 <% if currently_signed_in? @user %>
-  <%= link_to 'Change password', edit_user_path(@user) %>
+  <%= link_to 'Change password', edit_user_path(@user), :class => "btn btn-primary" %>
+  <%= link_to 'Remove account', @user,
+              :method => :delete, :data => { :confirm => 'Are you sure?' },
+              :class => "btn btn-danger" %>
 <% end %>

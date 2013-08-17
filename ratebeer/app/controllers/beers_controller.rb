@@ -1,17 +1,22 @@
 class BeersController < ApplicationController
-  before_filter :authenticate, :except => [:index, :show]
+  before_filter :authenticate, :except => [:index, :show, :list]
+
+  def list
+  end
 
   def index
-    @beers = Beer.all
+    @beers = Beer.all.sort_by{ |b| b.send(params[:order] || 'name') }
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @beers }
+      format.json { render :json => @beers, :methods => :brewery }
     end
   end
 
   def show
     @beer = Beer.find(params[:id])
+    @rating = Rating.new
+    @rating.beer = @beer
 
     respond_to do |format|
       format.html # show.html.erb

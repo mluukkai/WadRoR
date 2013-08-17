@@ -1,6 +1,11 @@
 class RatingsController < ApplicationController
+  before_filter :authenticate, :except => [:index]
+
   def index
-    @ratings = Rating.all
+    @most_active_raters = User.most_active 3
+    @top_beers = Beer.top 3
+    @top_breweries = Brewery.top 3
+    @recent_ratings = Rating.recent
   end
 
   def new

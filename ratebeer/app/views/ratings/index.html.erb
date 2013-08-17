@@ -1,8 +1,26 @@
-<h2>List of ratings</h2>
+<h2>Ratings</h2>
+
+<div class="row">
+  <div class="span 4">
+    <h3>Top beers</h3>
+    <%= render 'table', :elements => @top_beers %>
+  </div>
+  <div class="span 4">
+    <h3>Top breweries</h3>
+    <%= render 'table', :elements => @top_breweries %>
+  </div>
+</div>
+
+<h3>Most active user</h3>
+
+<%= render 'users/list', :users => @most_active_raters %>
+
+
+<h3>Resent ratings</h3>
 
 <ul>
-  <% @ratings.each do |rating| %>
-    <li> <%= rating %> by <%= link_to rating.user, rating.user %> </li>
+  <% @recent_ratings.each do |rating| %>
+    <li> <%= rating %> by <%= link_to rating.user, rating.user %> <%= rating.created_at %> </li>
   <% end %>
 </ul>
 

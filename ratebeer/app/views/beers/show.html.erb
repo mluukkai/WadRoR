@@ -4,11 +4,9 @@
   <%= @beer %>
 </h2>
 
-<p>
-  <b>Style:</b>
-  <%= @beer.style %>
-</p>
+<span class="label label-info"> <%= @beer.style %></span>
 
+<p></p>
 
 <% if @beer.ratings.empty? %>
   <p>beer does not have yet been rated!</p>
@@ -16,5 +14,20 @@
   <p>has been rated <%= @beer.ratings.count %> times, average score <%= @beer.average_rating %></p>
 <% end %>
 
-<%= link_to 'Edit', edit_beer_path(@beer) %> |
-<%= link_to 'Back', beers_path %>
+<h4>give a rating:</h4>
+
+<%= form_for(@rating) do |f| %>
+  <%= f.hidden_field :beer_id %>
+  score: <%= f.number_field :score %>
+  <%= f.submit :class => "btn btn-primary"%>
+<% end %>
+
+<p></p>
+
+<%= link_to 'Edit', edit_beer_path(@beer), :class => "btn btn-primary" %>
+
+<% if current_user_admin? %>
+  <%= link_to 'Destroy', @beer,
+              :method => :delete, :data => { :confirm => 'Are you sure?' },
+              :class => "btn btn-danger" %>
+<% end %>

@@ -1,0 +1,12 @@
+<table class="table table-condensed">
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+<% elements.each do |element| %>
+  <tr>
+    <td><%= link_to element.name, "#{element.name}/#{element.id}" %></td>
+    <td><%= element.average_rating %></td>
+  </tr>
+<% end %>
+</table>

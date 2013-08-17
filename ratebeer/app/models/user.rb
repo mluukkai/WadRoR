@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
 
   has_many :ratings, :dependent => :destroy
 
+  def self.most_active(n)
+    sorted_by_activity = User.all.sort_by{ |u| -u.ratings.count }
+    sorted_by_activity[0..n-1]
+  end
+
   def to_s
     username
   end
