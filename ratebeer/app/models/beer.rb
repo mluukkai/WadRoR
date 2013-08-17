@@ -1,9 +1,10 @@
 class Beer < ActiveRecord::Base
   include RatingAverage
 
-  attr_accessible :name, :style, :brewery_id
+  attr_accessible :name, :style_id, :brewery_id
 
   belongs_to :brewery
+  belongs_to :style
   has_many :ratings, :dependent => :destroy
 
   def self.top(n)

@@ -27,10 +27,13 @@ class BeersController < ApplicationController
   def new
     @beer = Beer.new
     @breweries = Brewery.all
+    @styles = Style.all
   end
 
   def edit
     @beer = Beer.find(params[:id])
+    @breweries = Brewery.all
+    @styles = Style.all
   end
 
   # POST /beers

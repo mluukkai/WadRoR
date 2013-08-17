@@ -1,6 +1,6 @@
 class AssosiateStylesToBeers < ActiveRecord::Migration
   def up
-    styles = Beer,all.each.map{ |b| b.style }.uniq
+    styles = Beer.all.each.map{ |b| b.style }.uniq
     styles.each do |style|
       Style.create :name => style
     end
@@ -10,7 +10,7 @@ class AssosiateStylesToBeers < ActiveRecord::Migration
 
     Beer.all.each do |beer|
       style = Style.find_by_name(beer.style_name)
-      beer.style_id = style
+      beer.style_id = style.id
       beer.save
     end
 

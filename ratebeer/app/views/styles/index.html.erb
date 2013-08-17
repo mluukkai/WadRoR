@@ -1,20 +1,13 @@
 <h1>Beer styles</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
-
 <% @styles.each do |style| %>
-  <tr>
-    <td><%= link_to style.name, style %></td>
-    <td><%= style.description %></td>
-    <td></td>
-  </tr>
+  <dl>
+    <dt><%= link_to style.name, style %></dt>
+    <dd><%= style.description %></dd>
+  </dl>
 <% end %>
-</table>
+
 
 <br />
 
-<%= link_to 'New Style', new_style_path %>
+<%= link_to 'New Style', new_style_path, :class => "btn btn-primary" %>

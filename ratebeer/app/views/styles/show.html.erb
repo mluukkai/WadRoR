@@ -4,18 +4,23 @@
   <%= @style.name %>
 </h2>
 
-<p>
-  <b>Description:</b>
+<blockquote>
   <%= @style.description %>
-</p>
+</blockquote>
 
-<h3>beers</h3>
+<% if not @style.beers.empty? %>
+  <h3>beers</h3>
 
-
+  <ul>
+    <% @style.beers.each do |beer| %>
+      <li><%= link_to beer, beer %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= link_to 'Edit', edit_style_path(@style), :class => "btn btn-primary" %>
 <% if current_user_admin? %>
-<%= link_to 'Destroy', style,
+<%= link_to 'Destroy', @style,
             :method => :delete, :data => { :confirm => 'Are you sure?' },
             :class => "btn btn-danger"%>
 <% end %>
