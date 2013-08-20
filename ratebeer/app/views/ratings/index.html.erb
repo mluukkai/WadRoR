@@ -1,30 +1,32 @@
-<h2>Ratings</h2>
+<% cache "foo", :expires_in => 2.minutes do %>
 
-<div class="row">
-  <div class="span 3">
-    <h3>Top beers</h3>
-    <%= render 'table', :elements => @top_beers %>
+  <h2>Ratings</h2>
+
+  <div class="row">
+    <div class="span 3">
+      <h3>Top beers</h3>
+      <%= render 'table', :elements => @top_beers, :path => beers_path  %>
+    </div>
+    <div class="span 3">
+      <h3>Top breweries</h3>
+      <%= render 'table', :elements => @top_breweries, :path => breweries_path  %>
+    </div>
+    <div class="span 3">
+      <h3>Top styles</h3>
+      <%= render 'table', :elements => @top_styles, :path => styles_path %>
+    </div>
   </div>
-  <div class="span 3">
-    <h3>Top breweries</h3>
-    <%= render 'table', :elements => @top_breweries %>
-  </div>
-  <div class="span 3">
-    <h3>Top styles</h3>
-    <%= render 'table', :elements => @top_styles %>
-  </div>
-</div>
 
-<h3>Most active user</h3>
+  <h3>Most active user</h3>
 
-<%= render 'users/list', :users => @most_active_raters %>
+  <%= render 'users/list', :users => @most_active_raters %>
 
+  <h3>Resent ratings</h3>
 
-<h3>Resent ratings</h3>
+  <ul>
+    <% @recent_ratings.each do |rating| %>
+      <li> <%= rating %> by <%= link_to rating.user, rating.user %> <%= rating.created_at %> </li>
+    <% end %>
+  </ul>
 
-<ul>
-  <% @recent_ratings.each do |rating| %>
-    <li> <%= rating %> by <%= link_to rating.user, rating.user %> <%= rating.created_at %> </li>
-  <% end %>
-</ul>
-
+<% end %>

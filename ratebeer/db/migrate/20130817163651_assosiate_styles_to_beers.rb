@@ -1,4 +1,5 @@
 class AssosiateStylesToBeers < ActiveRecord::Migration
+  # does not work...
   def up
     styles = Beer.all.each.map{ |b| b.style }.uniq
     styles.each do |style|
@@ -10,7 +11,7 @@ class AssosiateStylesToBeers < ActiveRecord::Migration
 
     Beer.all.each do |beer|
       style = Style.find_by_name(beer.style_name)
-      beer.style_id = style.id
+      beer.style_id = style.id unless style.nil?
       beer.save
     end
 

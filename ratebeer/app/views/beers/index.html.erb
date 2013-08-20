@@ -1,24 +1,27 @@
-<h1>Beers</h1>
+<% cache do %>
 
-<table class="table table-hover">
-  <thead>
+  <h1>Beers</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th> <%= link_to 'Name', beers_path(:order => "name") %> </th>
+        <th> <%= link_to 'Style', beers_path(:order => "style") %> </th>
+        <th> <%= link_to 'Brewery', beers_path(:order => "brewery") %> </th>
+      </tr>
+    </thead>
+
+  <% @beers.each do |beer| %>
     <tr>
-      <th> <%= link_to 'Name', beers_path(:order => "name") %> </th>
-      <th> <%= link_to 'Style', beers_path(:order => "style") %> </th>
-      <th> <%= link_to 'Brewery', beers_path(:order => "brewery") %> </th>
+      <td><%= link_to beer.name, beer %></td>
+      <td><%= link_to beer.style, beer.style %></td>
+      <td><%= link_to beer.brewery.name, beer.brewery %></td>
     </tr>
-  </thead>
+  <% end %>
+  </table>
 
-<% @beers.each do |beer| %>
-  <tr>
-    <td><%= link_to beer.name, beer %></td>
-    <td><%= link_to beer.style, beer.style %></td>
-    <td><%= link_to beer.brewery.name, beer.brewery %></td>
-  </tr>
+  <br />
+
+  <%= link_to 'New Beer', new_beer_path, :class => "btn btn-primary" %>
+
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Beer', new_beer_path, :class => "btn btn-primary" %>
-

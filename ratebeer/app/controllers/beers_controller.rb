@@ -5,7 +5,7 @@ class BeersController < ApplicationController
   end
 
   def index
-    @beers = Beer.all.sort_by{ |b| b.send(params[:order] || 'name') }
+    @beers = Beer.all(:include => [:brewery, :style]).sort_by{ |b| b.send(params[:order] || 'name') }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +41,8 @@ class BeersController < ApplicationController
   def create
     @beer = Beer.new(params[:beer])
 
+    expire_fragment :action => :index
+
     respond_to do |format|
       if @beer.save
         format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
@@ -57,6 +59,8 @@ class BeersController < ApplicationController
   def update
     @beer = Beer.find(params[:id])
 
+    expire_fragment :action => :index
+
     respond_to do |format|
       if @beer.update_attributes(params[:beer])
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
@@ -71,5 +75,7 @@ class BeersController < ApplicationController
   def destroy
     @beer = Beer.find(params[:id])
     @beer.destroy if current_user.admin?
+
+    expire_fragment :action => :index
   end
 end

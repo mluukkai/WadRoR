@@ -17,7 +17,7 @@ class BreweriesController < ApplicationController
   # GET /breweries/1
   # GET /breweries/1.json
   def show
-    @brewery = Brewery.find(params[:id])
+    @brewery = Brewery.find(params[:id], :include => :beers)
 
     respond_to do |format|
       format.html # show.html.erb
