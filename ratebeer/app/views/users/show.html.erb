@@ -20,7 +20,7 @@
 
   <p>
     <strong>
-      <%= @user.ratings.count %> ratings given, average score <%= @user.average_rating %>
+      <%= @user.ratings.count %> ratings given, average score <%= round(@user.average_rating) %>
     </strong>
   </p>
 

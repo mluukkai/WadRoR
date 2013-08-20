@@ -6,4 +6,8 @@ module ApplicationHelper
               :class => "btn btn-danger"
     end
   end
+
+  def round(value)
+    number_with_precision(value, :precision => 1)
+  end
 end

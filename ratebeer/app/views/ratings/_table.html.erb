@@ -6,7 +6,7 @@
 <% elements.each do |element| %>
   <tr>
     <td><%= link_to element, "#{path}/#{element.id}" %></td>
-    <td><%= element.average_rating %></td>
+    <td><%= round(element.average_rating) %></td>
   </tr>
 <% end %>
 </table>
